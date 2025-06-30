@@ -1,0 +1,35 @@
+ {
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR001",
+            "Field": "MobileNumber",
+            "InternalMessage":
+                "Please Enter 10 digit Mobile Number and should match pattern ^[6-9]\\d{9}\\$",
+            "Mandatory": "Y",
+            "Pattern": "^[6-9][0-9]{9}\\$",
+            "UserMessage": "Enter a valid 10-digit mobile number",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR002",
+            "Field": "VerificationMethod",
+            "InternalMessage": "Select a verification method",
+            "Mandatory": "Y",
+            "UserMessage": "Select a verification method",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "string",
+            "ErrorCode": "ERR003",
+            "Field": "EmailId",
+            "InternalMessage": "Enter a valid email address",
+            "Mandatory": "N",
+            "Pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\\$",
+            "UserMessage": "Enter a valid email address",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "CustomerDetails"
+      }

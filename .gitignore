@@ -1,0 +1,182 @@
+# Ignore .idea directories at any level
+**/.idea/
+
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore virtual environments
+venv/
+ENV/
+env/
+.venv/
+.pyenv/
+.pyenv/*
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Ignore mypy cache
+.mypy_cache/
+
+# Ignore compiled C extensions
+*.so
+
+# Ignore logs
+*.log
+
+# Ignore coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Ignore pytest cache
+.pytest_cache/
+.cache/
+
+# Ignore Django stuff
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Ignore Flask stuff
+instance/
+.webassets-cache
+
+# Ignore Scrapy stuff
+.scrapy
+
+# Ignore Sphinx documentation
+docs/_build/
+
+# Ignore PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Ignore macOS-specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Ignore automatically generated files by editors and IDEs
+*~
+*.swp
+
+# Ignore dotenv
+.env
+.env.*
+
+# Ignore other IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore system-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore temporary files created by editors
+*.bak
+*.tmp
+*.temp
+
+# Ignore package manager artifacts
+Pipfile
+Pipfile.lock
+poetry.lock
+poetry.toml
+
+# Ignore lock files
+*.lock
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+MANIFEST
+
+# Ignore wheel files
+*.whl
+
+# Ignore coverage reports
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+
+# Ignore pytest cache
+.pytest_cache/
+.cache/
+
+# Ignore PyCharm-specific files
+.idea/
+
+# Ignore local testing files
+.tox/
+.nox/
+*.tox
+.tox/*
+
+# Ignore temporary files created by editors
+*.bak
+*.tmp
+*.temp
+*.old
+*.orig
+*.swp
+*.swo
+*.log
+*.err
+*.out
+
+# Ignore additional common files
+*.pdf
+*.class
+*.psd
+*.db
+
+# Ignore other environment files
+.venv/
+.virtualenv/
+*.txt
+/tree.txt
+**/parent_chunks/
+**/*logs*
+setup.txt
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-13-50/.hydra/config.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-19-30/.hydra/config.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-25-09/.hydra/config.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-25-26/.hydra/config.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-13-50/.hydra/hydra.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-19-30/.hydra/hydra.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-25-09/.hydra/hydra.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-25-26/.hydra/hydra.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-13-50/.hydra/overrides.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-19-30/.hydra/overrides.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-25-09/.hydra/overrides.yaml
+/rag_framework/chain_components/rerankers/rerankers/outputs/2024-08-05/12-25-26/.hydra/overrides.yaml
+
+
+# Ignore the chromadb directory and all its contents
+chromadb/

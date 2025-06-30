@@ -1,0 +1,49 @@
+{
+        "ConditionalValidations": [
+          {
+            "Condition": "ADID == '' || Password == ''",
+            "Validation": [
+              {
+                "ErrorCode": "ERR_LOGIN_006",
+                "Field": "ADID",
+                "InternalMessage":
+                    "Login button was clicked but ADID is missing",
+                "Mandatory": "Y",
+                "UserMessage": "ADID is required"
+              },
+              {
+                "ErrorCode": "ERR_LOGIN_007",
+                "Field": "Password",
+                "InternalMessage":
+                    "Login button was clicked but password is missing",
+                "Mandatory": "Y",
+                "UserMessage": "Password is required"
+              }
+            ]
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_LOGIN_001",
+            "Field": "ADID",
+            "InternalMessage":
+                "ADID must be alphanumeric and 3 to 10 characters",
+            "Mandatory": "Y",
+            "Pattern": "^[A-Za-z0-9]{3,12}\\$",
+            "UserMessage": "Please enter a valid ADID",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_LOGIN_002",
+            "Field": "Password",
+            "InternalMessage": "Password format validation",
+            "Mandatory": "Y",
+            "Pattern": "^.{6,20}\\$",
+            "UserMessage": "Password must be 6 to 20 characters long",
+            "ValidationType": "Regex"
+          }
+        ],
+        "StepName": "Login"
+      }

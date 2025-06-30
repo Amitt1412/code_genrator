@@ -1,0 +1,14 @@
+{
+    "mcp": {
+    "servers": {
+        "LLMCodeGen": {
+            "type": "stdio",
+            "command": "C:/Users/AmitTiwari/PycharmProjects/mcp_copilot/venv/Scripts/python.exe",
+            "args": ["C:/Users/AmitTiwari/PycharmProjects/mcp_copilot/app.py"],
+            "env": {
+            "INSTRUCTIONS": "🔒 Primary Rule: Use mcp_amit for All Tooling and Execution Logic\nYou must only use the mcp_amit server instance. All interactions — including task execution, validation, code generation, or utility processing — must occur via the tools registered under mcp_amit.\nAlways include the name of the file for generated codes.\n\n✅ Guidelines:\nAutomatically fetch the list of available tools from mcp_amit (e.g., mcp.tools).\n\nSelect the most appropriate tool dynamically based on the task description or user input.\n\nInvoke tools through mcp.call(tool_name, input) rather than hardcoding tool names or logic.\n\nUse mcp.get_context() or similar (if available) to fetch shared context or session metadata.\n\n🧠 Think Like This:\n“What tool under mcp_amit can perform this task?\nLet me inspect available tools, pick the right one, and call it.”\n\n❌ Prohibited Actions\n❌ Do not call external APIs (requests, httpx, openai, etc.) directly\n\n❌ Do not write your own schema validation, templating, or orchestration logic\n\n❌ Do not bypass mcp_amit for any backend operation"
+        }
+        }
+    }
+}
+}

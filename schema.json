@@ -1,0 +1,202 @@
+{
+  "resdata": {
+    "JourneyStepValidations": [
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "ADID == '' || Password == ''",
+            "Validation": [
+              {
+                "ErrorCode": "ERR_LOGIN_006",
+                "Field": "ADID",
+                "InternalMessage": "Login button was clicked but ADID is missing",
+                "Mandatory": "Y",
+                "UserMessage": "ADID is required"
+              },
+              {
+                "ErrorCode": "ERR_LOGIN_007",
+                "Field": "Password",
+                "InternalMessage": "Login button was clicked but password is missing",
+                "Mandatory": "Y",
+                "UserMessage": "Password is required"
+              }
+            ]
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_LOGIN_001",
+            "Field": "UserName",
+            "InternalMessage": "UserName must be alphanumeric and 3 to 10 characters",
+            "Mandatory": "Y",
+            "Pattern": "^[A-Za-z0-9]{3,12}$",
+            "UserMessage": "Please enter a valid UserName",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_LOGIN_002",
+            "Field": "Password",
+            "InternalMessage": "Password format validation",
+            "Mandatory": "Y",
+            "Pattern": "^.{6,20}$",
+            "UserMessage": "Password must be 6 to 20 characters long",
+            "ValidationType": "Regex"
+          }
+        ],
+        "StepName": "Login"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "SelectedProductLength == 0",
+            "Validation": {
+              "DataType": "ARRAY",
+              "ErrorCode": "ERR_PROD_002",
+              "Field": "SelectedProduct",
+              "InternalMessage": "At least one product must be selected.",
+              "Mandatory": "Y",
+              "UserMessage": "Please select at least one product to proceed.",
+              "ValidationType": ""
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "ARRAY",
+            "ErrorCode": "ERR_PROD_001",
+            "Field": "SelectedProduct",
+            "InternalMessage": "Product selection is mandatory to continue journey.",
+            "Mandatory": "Y",
+            "UserMessage": "Please select at least one product to proceed..",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "SmartSuiteProductSelection"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "SelectedProduct.contains('Credit Card') || SelectedProduct.contains('PMJJBY')",
+            "Validation": {
+              "DataType": "STRING",
+              "ErrorCode": "ERR063",
+              "Field": "EmailId",
+              "InternalMessage": "Email ID should be in a valid format",
+              "Mandatory": "Y",
+              "Pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+              "UserMessage": "Please enter a valid email ID",
+              "ValidationType": "Regex"
+            }
+          },
+          {
+            "Condition": "VerificationMethod == 'DOB'",
+            "Validation": {
+              "DataType": "DATE",
+              "ErrorCode": "ERR004",
+              "Field": "DOB",
+              "InternalMessage": "Enter a valid date of birth",
+              "Mandatory": "Y",
+              "Pattern": "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$",
+              "UserMessage": "Enter a valid date of birth",
+              "ValidationType": "Regex",
+              "format": "DD/MM/YYYY"
+            }
+          },
+          {
+            "Condition": "VerificationMethod == 'PAN'",
+            "Validation": {
+              "DataType": "string",
+              "ErrorCode": "ERR005",
+              "Field": "PAN",
+              "InternalMessage": "Enter a valid PAN number",
+              "Mandatory": "Y",
+              "Pattern": "^[A-Z]{3}P[A-Z][0-9]{4}[A-Z]{1}$",
+              "UserMessage": "Enter a valid PAN number",
+              "ValidationType": "Regex"
+            }
+          },
+          {
+            "Condition": "VerificationMethod == 'Cust ID'",
+            "Validation": {
+              "DataType": "STRING",
+              "ErrorCode": "ERR006",
+              "Field": "CustId",
+              "InternalMessage": "Enter a valid Customer ID",
+              "Mandatory": "Y",
+              "Pattern": "^[0-9]+$",
+              "UserMessage": "Enter a valid Customer ID",
+              "ValidationType": "Regex",
+              "maxLength": 12,
+              "minLength": 6
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR001",
+            "Field": "MobileNumber",
+            "InternalMessage": "Please Enter 10 digit Mobile Number and should match pattern ^[6-9]\\d{9}$",
+            "Mandatory": "Y",
+            "Pattern": "^[6-9][0-9]{9}$",
+            "UserMessage": "Enter a valid 10-digit mobile number",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR002",
+            "Field": "VerificationMethod",
+            "InternalMessage": "Select a verification method",
+            "Mandatory": "Y",
+            "UserMessage": "Select a verification method",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "string",
+            "ErrorCode": "ERR003",
+            "Field": "EmailId",
+            "InternalMessage": "Enter a valid email address",
+            "Mandatory": "N",
+            "Pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+            "UserMessage": "Enter a valid email address",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "CustomerDetails"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "KycMode == 'Aadhaar eKYC'",
+            "Validation": {
+              "DataType": "BOOLEAN",
+              "ErrorCode": "ERR008",
+              "Field": "AvailGovermentBenifit",
+              "InternalMessage": "Consent for Terms & Conditions is mandatory.",
+              "Mandatory": "Y",
+              "UserMessage": "Please accept Terms & Conditions.",
+              "ValidationType": ""
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR007",
+            "Field": "KycMode",
+            "InternalMessage": "Select a valid KYC mode",
+            "Mandatory": "Y",
+            "UserMessage": "Select a valid KYC mode",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "KYCModeSelection"
+      }
+    ],
+    "Product": "Account Opening"
+  },
+  "response": "Success",
+  "statuscode": "200"
+}

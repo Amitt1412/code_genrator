@@ -1,0 +1,1883 @@
+{
+  "resdata": {
+    "JourneyStepValidations": [
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "ADID == '' || Password == ''",
+            "Validation": [
+              {
+                "ErrorCode": "ERR_LOGIN_006",
+                "Field": "ADID",
+                "InternalMessage":
+                    "Login button was clicked but ADID is missing",
+                "Mandatory": "Y",
+                "UserMessage": "ADID is required"
+              },
+              {
+                "ErrorCode": "ERR_LOGIN_007",
+                "Field": "Password",
+                "InternalMessage":
+                    "Login button was clicked but password is missing",
+                "Mandatory": "Y",
+                "UserMessage": "Password is required"
+              }
+            ]
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_LOGIN_001",
+            "Field": "ADID",
+            "InternalMessage":
+                "ADID must be alphanumeric and 3 to 10 characters",
+            "Mandatory": "Y",
+            "Pattern": "^[A-Za-z0-9]{3,12}\\$",
+            "UserMessage": "Please enter a valid ADID",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_LOGIN_002",
+            "Field": "Password",
+            "InternalMessage": "Password format validation",
+            "Mandatory": "Y",
+            "Pattern": "^.{6,20}\\$",
+            "UserMessage": "Password must be 6 to 20 characters long",
+            "ValidationType": "Regex"
+          }
+        ],
+        "StepName": "Login"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "SelectedProductLength == 0",
+            "Validation": {
+              "DataType": "ARRAY",
+              "ErrorCode": "ERR_PROD_002",
+              "Field": "SelectedProduct",
+              "InternalMessage": "At least one product must be selected.",
+              "Mandatory": "Y",
+              "UserMessage": "Please select at least one product to proceed.",
+              "ValidationType": ""
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "ARRAY",
+            "ErrorCode": "ERR_PROD_001",
+            "Field": "SelectedProduct",
+            "InternalMessage":
+                "Product selection is mandatory to continue journey.",
+            "Mandatory": "Y",
+            "UserMessage": "Please select at least one product to proceed..",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "SmartSuiteProductSelection"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition":
+                "SelectedProduct.contains('Credit Card') || SelectedProduct.contains('PMJJBY')",
+            "Validation": {
+              "DataType": "STRING",
+              "ErrorCode": "ERR063",
+              "Field": "EmailId",
+              "InternalMessage": "Email ID should be in a valid format",
+              "Mandatory": "Y",
+              "Pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\\$",
+              "UserMessage": "Please enter a valid email ID",
+              "ValidationType": "Regex"
+            }
+          },
+          {
+            "Condition": "VerificationMethod == 'DOB'",
+            "Validation": {
+              "DataType": "DATE",
+              "ErrorCode": "ERR004",
+              "Field": "DOB",
+              "InternalMessage": "Enter a valid date of birth",
+              "Mandatory": "Y",
+              "Pattern":
+                  "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})\\$",
+              "UserMessage": "Enter a valid date of birth",
+              "ValidationType": "Regex",
+              "format": "DD/MM/YYYY"
+            }
+          },
+          {
+            "Condition": "VerificationMethod == 'PAN'",
+            "Validation": {
+              "DataType": "string",
+              "ErrorCode": "ERR005",
+              "Field": "PAN",
+              "InternalMessage": "Enter a valid PAN number",
+              "Mandatory": "Y",
+              "Pattern": "^[A-Z]{3}P[A-Z][0-9]{4}[A-Z]{1}\\$",
+              "UserMessage": "Enter a valid PAN number",
+              "ValidationType": "Regex"
+            }
+          },
+          {
+            "Condition": "VerificationMethod == 'Cust ID'",
+            "Validation": {
+              "DataType": "STRING",
+              "ErrorCode": "ERR006",
+              "Field": "CustId",
+              "InternalMessage": "Enter a valid Customer ID",
+              "Mandatory": "Y",
+              "Pattern": "^[0-9]+\\$",
+              "UserMessage": "Enter a valid Customer ID",
+              "ValidationType": "Regex",
+              "maxLength": 12,
+              "minLength": 6
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR001",
+            "Field": "MobileNumber",
+            "InternalMessage":
+                "Please Enter 10 digit Mobile Number and should match pattern ^[6-9]\\d{9}\\$",
+            "Mandatory": "Y",
+            "Pattern": "^[6-9][0-9]{9}\\$",
+            "UserMessage": "Enter a valid 10-digit mobile number",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR002",
+            "Field": "VerificationMethod",
+            "InternalMessage": "Select a verification method",
+            "Mandatory": "Y",
+            "UserMessage": "Select a verification method",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "string",
+            "ErrorCode": "ERR003",
+            "Field": "EmailId",
+            "InternalMessage": "Enter a valid email address",
+            "Mandatory": "N",
+            "Pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\\$",
+            "UserMessage": "Enter a valid email address",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "CustomerDetails"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "KycMode == 'Aadhaar eKYC'",
+            "Validation": {
+              "DataType": "BOOLEAN",
+              "ErrorCode": "ERR008",
+              "Field": "AvailGovermentBenifit",
+              "InternalMessage": "Consent for Terms & Conditions is mandatory.",
+              "Mandatory": "Y",
+              "UserMessage": "Please accept Terms & Conditions.",
+              "ValidationType": ""
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR007",
+            "Field": "KycMode",
+            "InternalMessage": "Select a valid KYC mode",
+            "Mandatory": "Y",
+            "UserMessage": "Select a valid KYC mode",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "KYCModeSelection"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition":
+                "KycMode == 'Aadhaar eKYC' && AvailGovermentBenifit == true",
+            "Validation": {
+              "DataType": "BOOLEAN",
+              "ErrorCode": "ERR012",
+              "Field": "AadhaarConsent",
+              "InternalMessage": "Consent for Aadhaar is mandatory.",
+              "Mandatory": "Y",
+              "UserMessage": "Please accept Aadhaar consent.",
+              "ValidationType": ""
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "BOOLEAN",
+            "ErrorCode": "ERR009",
+            "Field": "ProductAndPolicyConsent",
+            "InternalMessage": "Consent for Terms & Conditions is mandatory.",
+            "Mandatory": "Y",
+            "UserMessage": "Please accept Product and Policy Consent",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "BOOLEAN",
+            "ErrorCode": "ERR010",
+            "Field": "WhatsAppBankConsent",
+            "InternalMessage": "Consent for Privacy Policy is mandatory.",
+            "Mandatory": "Y",
+            "UserMessage": "Please accept the WhatsApp Banking consent.",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "BOOLEAN",
+            "ErrorCode": "ERR011",
+            "Field": "HNWConsent",
+            "InternalMessage": "Consent for Marketing is mandatory.",
+            "Mandatory": "Y",
+            "UserMessage": "Please accept HNW consent.",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "CustomerConsent"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "DocumentType == 'Passport'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR_DOC_PASSPORT_001",
+                "Field": "PassportNumber",
+                "InternalMessage": "Passport number mandatory for passport.",
+                "Mandatory": "Y",
+                "UserMessage":
+                    "Passport number is required for passport document.",
+                "ValidationType": "TEXT"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR_DOC_002",
+                "Field": "FileNumber",
+                "InternalMessage": "File number validation failed.",
+                "Mandatory": "Y",
+                "UserMessage": "Please enter a valid file number.",
+                "ValidationType": "TEXT"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR_DOC_006",
+                "Field": "DateOfBirth",
+                "InternalMessage": "Date of birth validation failed.",
+                "Mandatory": "Y",
+                "UserMessage": "Please enter your date of birth.",
+                "ValidationType": "DATE"
+              }
+            ]
+          },
+          {
+            "Condition": "DocumentType == 'Driving License'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR_DOC_DL_001",
+                "Field": "DrivingLicenseNumber",
+                "InternalMessage": "Driving License number mandatory.",
+                "Mandatory": "Y",
+                "UserMessage": "Driving License number is required.",
+                "ValidationType": "TEXT"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR_DOC_006",
+                "Field": "DateOfBirth",
+                "InternalMessage": "Date of birth validation failed.",
+                "Mandatory": "Y",
+                "UserMessage": "Please enter your date of birth.",
+                "ValidationType": "DATE"
+              }
+            ]
+          },
+          {
+            "Condition": "DocumentType == 'Voter ID'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR_DOC_VOTER_001",
+                "Field": "VoterIdNumber",
+                "InternalMessage": "Voter ID number mandatory.",
+                "Mandatory": "Y",
+                "UserMessage": "Voter ID number is required.",
+                "ValidationType": "TEXT"
+              }
+            ]
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_DOC_001",
+            "Field": "DocumentType",
+            "InternalMessage": "Document type selection is mandatory.",
+            "Mandatory": "Y",
+            "UserMessage": "Please select a valid document type.",
+            "ValidationType": "DROPDOWN"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR007",
+            "Field": "DocumentProofType",
+            "InternalMessage": "Document tagging (proof type) is mandatory.",
+            "Mandatory": "Y",
+            "UserMessage":
+                "Please tag the above document as Address proof, ID proof, or Both.",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "BOOLEAN",
+            "ErrorCode": "ERR_DOC_014",
+            "Field": "ConsentGiven",
+            "InternalMessage": "User consent missing.",
+            "Mandatory": "Y",
+            "UserMessage":
+                "Please provide your consent to validate the document.",
+            "ValidationType": "CHECKBOX"
+          }
+        ],
+        "StepName": "OfficialValidDocuments"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "KycMode == 'Official Valid Document'",
+            "validation": {
+              "AllowedTypes": ["jpg", "jpeg", "png", "pdf"],
+              "DataType": "STRING",
+              "ErrorCode": "ERR013",
+              "Field": "LivePhotogarph",
+              "InternalMessage":
+                  "Upload a valid JPEG, PNG, or PDF file less than 2MB",
+              "Mandatory": "N",
+              "MaxSizeKB": 2048,
+              "MinSizeKB": 10,
+              "UserMessage":
+                  "Upload a valid JPEG, PNG, or PDF file less than 2MB",
+              "ValidationType": "FileBase64"
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "AllowedTypes": ["jpg", "jpeg", "png", "pdf"],
+            "DataType": "STRING",
+            "ErrorCode": "ERR013",
+            "Field": "LivePhotogarph",
+            "InternalMessage":
+                "Upload a valid JPEG, PNG, or PDF file less than 2MB",
+            "Mandatory": "Y",
+            "MaxSizeKB": 2048,
+            "MinSizeKB": 10,
+            "UserMessage":
+                "Upload a valid JPEG, PNG, or PDF file less than 2MB",
+            "ValidationType": "FileBase64"
+          }
+        ],
+        "StepName": "CustomerLivePhotograph"
+      },
+      {
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR014",
+            "Field": "Prefix",
+            "InternalMessage": "Prefix should not be empty",
+            "Mandatory": "Y",
+            "UserMessage": "Please Select Prefix",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR015",
+            "Field": "FirstName",
+            "InternalMessage":
+                "First Name should not be empty and must not exceed 40 characters.",
+            "Mandatory": "Y",
+            "Maxlength": 40,
+            "Minlength": 1,
+            "Pattern": "^[A-Za-z]+\\$",
+            "UserMessage":
+                "First Name should not be empty and must not exceed 40 characters.",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR016",
+            "Field": "MiddleName",
+            "InternalMessage": "Middle name should be max 40 char",
+            "Mandatory": "N",
+            "Maxlength": 40,
+            "Minlength": 0,
+            "Pattern": "^[A-Za-z\\s\\-]+\\$",
+            "UserMessage": "Middle name should be max 40 char",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR017",
+            "Field": "LastName",
+            "InternalMessage": "Last name should be max 40 char",
+            "Mandatory": "Y",
+            "Maxlength": 40,
+            "Minlength": 0,
+            "Pattern": "^(?:[A-Za-z\\s\\-]+|\\.)\\$",
+            "UserMessage": "Last name should be max 40 char",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR018",
+            "Field": "CustomerFullName",
+            "InternalMessage":
+                "Customer's full name is required and should be between 3 to 50 characters",
+            "Mandatory": "Y",
+            "Maxlength": 50,
+            "Minlength": 3,
+            "Pattern": "^[A-Za-z .'-]+\\$",
+            "UserMessage":
+                "Customer's full name is required and should be between 3 to 50 characters",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR019",
+            "Field": "PAN",
+            "InternalMessage": "Please Enter vaild PAN",
+            "Mandatory": "N",
+            "Pattern": "^[A-Z]{3}P[A-Z][0-9]{4}[A-Z]{1}\\$",
+            "UserMessage": "Please Enter vaild PAN..",
+            "ValidationType": "Regex"
+          },
+          {
+            "AllowedTypes": ["jpg", "jpeg", "png", "pdf"],
+            "DataType": "STRING",
+            "ErrorCode": "ERR020",
+            "Field": "PanUpload",
+            "InternalMessage": "Please Upload PAN.",
+            "Mandatory": "N",
+            "MaxSizeKB": 2048,
+            "MinSizeKB": 10,
+            "UserMessage": "Please Upload PAN.",
+            "ValidationType": "FileBase64"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR021",
+            "Field": "Gender",
+            "InternalMessage": "Gender selection is required",
+            "Mandatory": "Y",
+            "UserMessage": "Please select gender",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "DATE",
+            "ErrorCode": "ERR022",
+            "Field": "DOB",
+            "InternalMessage":
+                "Calculated age from DOB is outside range 18-100 or date format should be like yyyy-mm-dd",
+            "Mandatory": "Y",
+            "MaxAge": 100,
+            "MinAge": 18,
+            "UserMessage": "Age must be between 18 and 100.",
+            "ValidationType": "DateRange"
+          },
+          {
+            "DataType": "BOOLEAN",
+            "ErrorCode": "ERR037",
+            "Field": "DOBConsent",
+            "InternalMessage": "Boolean value is required true/false",
+            "Mandatory": "Y",
+            "UserMessage": "Please mention true/false.",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR023",
+            "Field": "AddressLine1",
+            "InternalMessage": "Please Enter valid Address.",
+            "Mandatory": "Y",
+            "Maxlength": 35,
+            "Minlength": 5,
+            "Pattern": "^[A-Za-z\\s,. ]+\\$",
+            "UserMessage": "Please Enter valid Address.",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR024",
+            "Field": "AddressLine2",
+            "InternalMessage": "Please Enter valid Address.",
+            "Mandatory": "Y",
+            "Maxlength": 35,
+            "Minlength": 5,
+            "Pattern": "^[A-Za-z\\s,. ]+\\$",
+            "UserMessage": "Please Enter valid Address.",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR025",
+            "Field": "Landmark",
+            "InternalMessage": "Please Enter valid Landmark.",
+            "Mandatory": "Y",
+            "Maxlength": 40,
+            "Pattern": "^[A-Za-z\\s,. ]+\\$",
+            "UserMessage": "Please Enter valid Landmark.",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR026",
+            "Field": "Pincode",
+            "InternalMessage": "Please Enter valid detail.",
+            "Mandatory": "Y",
+            "Maxlength": 6,
+            "Pattern": "^[0-9]+\\$",
+            "UserMessage": "Please Enter valid detail.",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR027",
+            "Field": "City",
+            "InternalMessage": "Please Enter valid City name.",
+            "Mandatory": "Y",
+            "Maxlength": 50,
+            "Pattern": "^[A-Za-z ]+\\$",
+            "UserMessage": "Please Enter valid City name.",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR028",
+            "Field": "State",
+            "InternalMessage": "Please Enter valid State Name.",
+            "Mandatory": "Y",
+            "Maxlength": 50,
+            "Pattern": "^[A-Za-z ]+\\$",
+            "UserMessage": "Please Enter valid State Name.",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR029",
+            "Field": "UseAddressAs",
+            "InternalMessage": "Address type should be selected",
+            "Mandatory": "Y",
+            "UserMessage": "Please select address type",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR030",
+            "Field": "ResidentType",
+            "InternalMessage": "Residence type should not be empty",
+            "Mandatory": "Y",
+            "UserMessage": "Please select a residence type",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR031",
+            "Field": "NamePrintOnCreditCard",
+            "InternalMessage": "Name should be max 100 char",
+            "Mandatory": "N",
+            "Maxlength": 100,
+            "Minlength": 0,
+            "Pattern": "^[A-Za-z\\s\\-]+\\$",
+            "UserMessage": "Name should be max 100 char",
+            "ValidationType": "Regex"
+          }
+        ],
+        "StepName": "PersonalDetails"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "MaritalStatus == 'Married'",
+            "Validation": {
+              "ErrorCode": "ERR052",
+              "Field": "SpouseName",
+              "InternalMessage":
+                  "Spouse Name is required when Marital Status is 'Married'",
+              "Mandatory": "Y",
+              "UserMessage":
+                  "Spouse Name is required when Marital Status is 'Married'"
+            }
+          },
+          {
+            "Condition": "MaritalStatus == 'Married' && Gender == 'Female'",
+            "Validation": {
+              "DataType": "STRING",
+              "ErrorCode": "ERR053",
+              "Field": "MaidenName",
+              "InternalMessage": "Maiden name should be min 3 and max 40 char",
+              "Mandatory": "Y",
+              "Maxlength": 40,
+              "Minlength": 3,
+              "Pattern": "^[A-Za-z\\s\\-]+\\$",
+              "UserMessage": "Please Enter Maiden Name",
+              "ValidationType": "Regex"
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR045",
+            "Field": "FatherName",
+            "InternalMessage": "Father name should be min 3 and max 40 char",
+            "Mandatory": "Y",
+            "Maxlength": 40,
+            "Minlength": 3,
+            "Pattern": "^[A-Za-z\\s\\-]+\\$",
+            "UserMessage": "Please Enter Father Name",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR046",
+            "Field": "MotherName",
+            "InternalMessage": "Mother name should be min 3 and max 40 char",
+            "Mandatory": "Y",
+            "Maxlength": 40,
+            "Minlength": 3,
+            "Pattern": "^[A-Za-z\\s\\-]+\\$",
+            "UserMessage": "Please Enter Mother Name",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR047",
+            "Field": "MaritalStatus",
+            "InternalMessage": "Please select your Marital Status",
+            "Mandatory": "Y",
+            "UserMessage": "Please select your Marital Status",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR048",
+            "Field": "SpouseName",
+            "InternalMessage": "Spouse's name must be alphabets only",
+            "Mandatory": "N",
+            "Maxlength": 50,
+            "Pattern": "^[A-Za-z '-]+\\$",
+            "UserMessage": "Please enter a valid Spouse Name (Alphabets only)",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR049",
+            "Field": "CountryofBirth",
+            "InternalMessage": "Please Enter Country of Birth",
+            "Mandatory": "Y",
+            "Pattern": "^[A-Za-z0-9 ]+\\$",
+            "UserMessage": "Please Enter Country of Birth",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR050",
+            "Field": "StateofBirth",
+            "InternalMessage": "Please Enter State of Birth",
+            "Mandatory": "Y",
+            "Pattern": "^[A-Za-z ]+\\$",
+            "UserMessage": "Please Enter State of Birth",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR051",
+            "Field": "CityofBirth",
+            "InternalMessage": "Please Enter City of Birth",
+            "Mandatory": "Y",
+            "Pattern": "^[A-Za-z ]+\\$",
+            "UserMessage": "Please Enter City of Birth",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "FamilyAndBirthPlaceDetails"
+      }
+      ,
+      {
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR054",
+            "Field": "SelectBranch",
+            "InternalMessage": "Branch should not be empty",
+            "Mandatory": "N",
+            "UserMessage": "Please select a branch",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR055",
+            "Field": "BranchAddress",
+            "InternalMessage": "Branch address should not be empty",
+            "Mandatory": "N",
+            "Maxlength": 250,
+            "Minlength": 5,
+            "Pattern": "^[A-Za-z0-9 ]+\\$",
+            "UserMessage": "Please enter a valid branch address anandas",
+            "ValidationType": "Regex"
+          }
+        ],
+        "StepName": "BranchDetails"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "PersonalEmailId != ''",
+            "Validation": {
+              "DataType": "",
+              "ErrorCode": "ERR064",
+              "Field": "EmailVerification",
+              "InternalMessage": "If email is provided, it must be verified",
+              "Mandatory": "Y",
+              "UserMessage": "Email verification is mandatory",
+              "ValidationType": ""
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR001",
+            "Field": "MobileNumber",
+            "InternalMessage":
+                "Please Enter 10 digit Mobile Number and should match pattern ^[6-9]\\d{9}\\$",
+            "Mandatory": "Y",
+            "Pattern": "^[6-9][0-9]{9}\\$",
+            "UserMessage": "Enter a valid 10-digit mobile number",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR063",
+            "Field": "PersonalEmailId",
+            "InternalMessage": "Email ID should be in a valid format",
+            "Mandatory": "N",
+            "Pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\\$",
+            "UserMessage": "Please enter a valid email ID",
+            "ValidationType": "Regex"
+          }
+        ],
+        "StepName": "ContactDetails"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition":
+                "EmploymentType == 'SALARIED' || EmploymentType == 'PROFESSIONAL' || EmploymentType == 'SELF EMP PROF'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR117",
+                "Field": "OfficeAddressLine1",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 10,
+                "Pattern": "^[A-Za-z\\s]+\\$",
+                "UserMessage": "Please enter minimum 10 characters.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR117",
+                "Field": "OfficeAddressLine2",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "N",
+                "Minlength": 3,
+                "Pattern": "^[A-Za-z\\s]+\\$",
+                "UserMessage": "Please enter minimum 3 characters",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR117",
+                "Field": "OfficeLandmark",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "N",
+                "Minlength": 3,
+                "Pattern": "^[A-Za-z\\s]+\\$",
+                "UserMessage": "Please enter minimum 3 characters",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR117",
+                "Field": "OfficePincode",
+                "InternalMessage": "Please Enter valid Pincode.",
+                "Mandatory": "Y",
+                "Minlength": 6,
+                "Maxlength": 6,
+                "Pattern": "^[0-9]{6}\\$",
+                "UserMessage": "Please enter a valid 6-digit pincode.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR117",
+                "Field": "OfficeCity",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 2,
+                "Pattern": "^[A-Za-z\\s]+\\$",
+                "UserMessage": "Please enter a valid city name",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR117",
+                "Field": "OfficeState",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 2,
+                "Pattern": "^[A-Za-z\\s]+\\$",
+                "UserMessage": "Please enter a valid state name",
+                "ValidationType": "Regex"
+              }
+            ]
+          },
+          {
+            "Condition": "EmploymentType == 'POLITICIAN'",
+            "Validation": {
+              "ErrorCode": "ERR072",
+              "Field": "PoliticallyExposed",
+              "InternalMessage": "If Politician then it should be yes.",
+              "Mandatory": "Y",
+              "UserMessage": "If Politician then it should be yes."
+            }
+          },
+          {
+            "Condition":
+                "EmploymentType == 'SALARIED' || EmploymentType == 'PROFESSIONAL' || EmploymentType == 'SELF EMP PROF'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR112",
+                "Field": "TypeOfOrganisation",
+                "InternalMessage": "TypeOfOrganisation",
+                "Mandatory": "Y",
+                "UserMessage":
+                    "Please select a valid Type of Organisation from the options provided.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR113",
+                "Field": "CompanyName",
+                "InternalMessage": "Please Select Company Name",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid Company Name.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR114",
+                "Field": "Designation",
+                "InternalMessage": "Please Select Designation",
+                "Mandatory": "Y",
+                "UserMessage":
+                    "Please select a valid Designation from the options provided.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR115",
+                "Field": "WorkEmail",
+                "InternalMessage": "Please provide valid email",
+                "Mandatory": "Y",
+                "UserMessage": "Please provide valid email Id.",
+                "ValidationType": ""
+              }
+            ]
+          },
+          {
+            "Condition":
+                "EmploymentType == 'AGRICULTURIST' || EmploymentType == 'HOMEMAKER HOUSEWIFE' || EmploymentType == 'POLITICIAN' || EmploymentType == 'PRIEST' || EmploymentType == 'RETIRED' || EmploymentType == 'STUDENT' || EmploymentType == 'UNEMPLOYED' ",
+            "Validation": [
+              {
+                "DataType": "NUMBER",
+                "ErrorCode": "ERR121",
+                "Field": "AnnualIncome",
+                "InternalMessage": "Please Enter Annual Income.",
+                "Mandatory": "Y",
+                "Maxlength": 15,
+                "Minlength": 1,
+                "Pattern": "^\\d+(\\.\\d{1,2})?\\$",
+                "UserMessage": "Please enter a valid Annual Income.",
+                "ValidationType": "Regex"
+              }
+            ]
+          },
+          {
+            "Condition": "EmploymentType == 'SALARIED' ",
+            "Validation": [
+              {
+                "DataType": "NUMBER",
+                "ErrorCode": "ERR110",
+                "Field": "MonthlyIncome",
+                "InternalMessage": "Please Enter Monthly Income.",
+                "Mandatory": "Y",
+                "Maxlength": 15,
+                "Minlength": 1,
+                "Pattern": "^\\d+(\\.\\d{1,2})?\\$",
+                "UserMessage": "Please enter a valid Monthly Income.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR112",
+                "Field": "TypeOfOrganisation",
+                "InternalMessage": "TypeOfOrganisation",
+                "Mandatory": "Y",
+                "UserMessage":
+                    "Please select a valid Employer Category or Type of Organisation.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR112",
+                "Field": "CompanyName",
+                "InternalMessage": "Please Select Company Name",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid Company Name.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR113",
+                "Field": "SourceOfIncome",
+                "InternalMessage": "Please Select Source Of Income",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid source of income.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR114",
+                "Field": "ResidencyType",
+                "InternalMessage": "Please Select Residency Type",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid Residency Type.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR115",
+                "Field": "ResidencyStatus",
+                "InternalMessage": "Please Select Residency Status",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid Residency Status.",
+                "ValidationType": "Regex"
+              }
+            ]
+          },
+          {
+            "Condition": "EmploymentType == 'SELF EMP PROF' ",
+            "Validation": [
+              {
+                "DataType": "NUMBER",
+                "ErrorCode": "ERR121",
+                "Field": "AnnualIncome",
+                "InternalMessage": "Please Enter Annual Income.",
+                "Mandatory": "Y",
+                "Maxlength": 15,
+                "Minlength": 1,
+                "Pattern": "^\\d+(\\.\\d{1,2})?\\$",
+                "UserMessage": "Please provide a valid annual income.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR123",
+                "Field": "SelfEmployedProfessionalCategory",
+                "InternalMessage": "Please Select Professional Category",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid professional category.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR124",
+                "Field": "SourceOfIncome",
+                "InternalMessage": "Please Select Source Of Fund",
+                "Mandatory": "Y",
+                "UserMessage":
+                    "Please select a valid source of income from the list.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR125",
+                "Field": "ResidencyType",
+                "InternalMessage": "Please Select Residency Type",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid residency type.",
+                "ValidationType": ""
+              }
+            ]
+          },
+          {
+            "Condition": "EmploymentType == 'SELF EMPLOYED' ",
+            "Validation": [
+              {
+                "DataType": "NUMBER",
+                "ErrorCode": "ERR121",
+                "Field": "AnnualIncome",
+                "InternalMessage": "Please Enter Annual Income.",
+                "Mandatory": "Y",
+                "Maxlength": 15,
+                "Minlength": 1,
+                "Pattern": "^\\d+(\\.\\d{1,2})?\\$",
+                "UserMessage": "Please enter a valid Annual Income.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "NUMBER",
+                "ErrorCode": "ERR123",
+                "Field": "SelfEmployedSincemonth",
+                "InternalMessage": "Please Enter Month.",
+                "Mandatory": "Y",
+                "Maxlength": 2,
+                "Minlength": 1,
+                "Pattern": "^\\d+(\\.\\d{1,2})?\\$",
+                "UserMessage": "Please enter a valid month.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "NUMBER",
+                "ErrorCode": "ERR124",
+                "Field": "SelfEmployedSinceYear",
+                "InternalMessage": "Please Enter Year.",
+                "Mandatory": "Y",
+                "Maxlength": 2,
+                "Minlength": 1,
+                "Pattern": "^\\d+(\\.\\d{1,2})?\\$",
+                "UserMessage": "Please enter a valid year.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR125",
+                "Field": "NatureOfBusiness",
+                "InternalMessage": "Please Select Source Of Fund",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid source of fund.",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "DATE",
+                "ErrorCode": "ERR126",
+                "Field": "IncorporationDate",
+                "InternalMessage": "Please Select Date Of Incorporation.",
+                "Mandatory": "Y",
+                "Pattern":
+                    "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})\\$",
+                "UserMessage": "Please select a valid Date of Incorporation.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR127",
+                "Field": "TypeOfCompany",
+                "InternalMessage": "Please Select Source Of Fund",
+                "Mandatory": "Y",
+                "UserMessage": "Please select a valid type of company.",
+                "ValidationType": ""
+              }
+            ]
+          },
+          {
+            "Condition": "TaxResidenOfIndia == false",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR110",
+                "Field": "TaxIdentificationNumber",
+                "InternalMessage": "Please Enter Tax Identification Number.",
+                "Mandatory": "Y",
+                "Maxlength": 20,
+                "Minlength": 1,
+                "Pattern": "^[a-zA-Z0-9]+\\$",
+                "UserMessage":
+                    "Please enter a valid Tax Identification Number.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR111",
+                "Field": "IdentificationType",
+                "InternalMessage": "Please Enter Identification Type.",
+                "Mandatory": "Y",
+                "Maxlength": 20,
+                "Minlength": 1,
+                "Pattern": "^[a-zA-Z0-9]+\\$",
+                "UserMessage": "Please enter a valid Identification Type.",
+                "ValidationType": "Regex"
+              }
+            ]
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR065",
+            "Field": "EmploymentType",
+            "InternalMessage": "Please Select Occupation Type",
+            "Mandatory": "Y",
+            "UserMessage":
+                "Please select a valid occupation type from the options provided.",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR066",
+            "Field": "AnnualIncome",
+            "InternalMessage": "Please Select AnnualIncome",
+            "Mandatory": "Y",
+            "UserMessage": "Please select a valid annual income.",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR066",
+            "Field": "SourceOfIncome",
+            "InternalMessage": "Please Select Source Of Fund",
+            "Mandatory": "Y",
+            "UserMessage": "Please select a valid source of income.",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "BOOLEAN",
+            "ErrorCode": "ERR070",
+            "Field": "PoliticallyExposed",
+            "InternalMessage": "Please Select valid Option",
+            "Mandatory": "N",
+            "UserMessage": "Please select a valid Option.",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "BOOLEAN",
+            "ErrorCode": "ERR071",
+            "Field": "IndianNationalAndTaxResidenOfIndia",
+            "InternalMessage": "Please Select valid Option",
+            "Mandatory": "N",
+            "UserMessage": "Please select a valid Option.",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "EmploymentFinancialDetails"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition":
+                "AnnualIncome > 1000000 && Age >= 18 && Age <= 25 && Occupation in ['Professionals', 'Self Employed', 'Salaried', 'Student', 'Housewife']",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR401_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, DigiSave Youth Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "SavingsMax Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR401_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, DigiSave Youth Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "DigiSave Youth Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome > 1000000 && Age >= 25 && Age <= 60 && Gender == 'Male' && Occupation in ['Professionals', 'Self Employed', 'Salaried']",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR402_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "SavingsMax Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR402_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Regular Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome > 1000000 && Age >= 25 && Age <= 60 && Gender == 'Female' && Occupation in ['Professionals', 'Self Employed', 'Salaried', 'HouseWife']",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR403_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, Women's Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "SavingsMax Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR403_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, Women's Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Women's Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome > 1000000 && Age > 60 && Occupation != 'Farmer'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR404_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, Senior Citizens Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "SavingsMax Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR404_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, Senior Citizens Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Senior Citizens Account"
+              }
+            ]
+          },
+          {
+            "Condition": "AnnualIncome > 1000000 && Occupation == 'Farmer'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR405_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, Farmers Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "SavingsMax Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR405_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: SavingsMax Account, Farmers Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Farmers Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age >= 18 && Age <= 25 && Gender == 'Male' && Occupation in ['Professionals', 'Self Employed', 'Salaried', 'Student']",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR406_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: DigiSave Youth Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "DigiSave Youth Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR406_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: DigiSave Youth Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Regular Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age >= 18 && Age <= 25 && Gender == 'Female' && Occupation in ['Professionals', 'Self Employed', 'Salaried', 'Student', 'Housewife']",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR407_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: DigiSave Youth Account, Women's Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "DigiSave Youth Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR407_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: DigiSave Youth Account, Women's Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Women's Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age >= 25 && Age <= 60 && Gender == 'Male' && Occupation in ['Professionals', 'Self Employed', 'Salaried']",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR408_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Regular Savings Account, SavingsMax Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Regular Savings Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR408_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Regular Savings Account, SavingsMax Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "SavingsMax Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age >= 25 && Age <= 60 && Gender == 'Female' && Occupation in ['Professionals', 'Self Employed', 'Salaried', 'HouseWife']",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR409_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Women's Savings Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Women's Savings Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR409_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Women's Savings Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Regular Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age > 60 && Gender == 'Male' && Occupation != 'Farmer'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR410_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Senior Citizens Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Senior Citizens Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR410_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Senior Citizens Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Regular Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age > 60 && Gender == 'Female' && Occupation != 'Farmer'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR411_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Senior Citizens Account, Women's Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Senior Citizens Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR411_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Senior Citizens Account, Women's Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Women's Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age < 60 && Gender == 'Male' && Occupation == 'Farmer'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR412_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Farmers Savings Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Farmers Savings Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR412_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Farmers Savings Account, Regular Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Regular Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age < 60 && Gender == 'Female' && Occupation == 'Farmer'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR413_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Farmers Savings Account, Women's Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Farmers Savings Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR413_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Farmers Savings Account, Women's Savings Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Women's Savings Account"
+              }
+            ]
+          },
+          {
+            "Condition":
+                "AnnualIncome < 1000000 && Age > 60 && Occupation == 'Farmer'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR414_1",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Farmers Savings Account, Senior Citizens Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Farmers Savings Account"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR414_2",
+                "Field": "AccountVarientType",
+                "InternalMessage":
+                    "Account variant must match one of the allowed values: Farmers Savings Account, Senior Citizens Account",
+                "UserMessage": "Please select a valid account variant.",
+                "ValidationType": "MATCH",
+                "Value": "Senior Citizens Account"
+              }
+            ]
+          }
+        ],
+        "StepName": "AccountVariantSelection"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "DoYouWantNominee == 'Yes'",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR190",
+                "Field": "NomineeRelation",
+                "InternalMessage":
+                    "Please select a valid relationship with the nominee",
+                "Mandatory": "Y",
+                "UserMessage":
+                    "Please select a valid relationship with the nominee",
+                "ValidationType": ""
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR191",
+                "Field": "NomineeFullName",
+                "InternalMessage":
+                    "Nominee's full name is required and should be between 3 to 50 characters",
+                "Mandatory": "Y",
+                "Maxlength": 50,
+                "Minlength": 3,
+                "Pattern": "^[A-Za-z .'-]+\\$",
+                "UserMessage":
+                    "Nominee's full name is required and should be between 3 to 50 characters",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "DATE",
+                "ErrorCode": "ERR192",
+                "Field": "NomineeDOB",
+                "InternalMessage": "Please enter a valid date of birth",
+                "Mandatory": "Y",
+                "Pattern":
+                    "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})\\$",
+                "UserMessage": "Please enter a valid date of birth",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR200",
+                "Field": "NomineeAdress",
+                "InternalMessage": "Nominee address is required",
+                "Mandatory": "Y",
+                "UserMessage": "Nominee address is required",
+                "ValidationType": ""
+              }
+            ]
+          },
+          {
+            "Condition": "NomineeFullName == CustomerFullName",
+            "Validation": {
+              "DataType": "",
+              "ErrorCode": "ERR074",
+              "Field": "NomineeFullName",
+              "InternalMessage":
+                  "Nominee name should not be the same as the customer's name",
+              "Mandatory": "",
+              "UserMessage":
+                  "Nominee name should not be the same as the customer's name",
+              "ValidationType": ""
+            }
+          },
+          {
+            "Condition": "NomineeDOB != ''",
+            "Validation": {
+              "DataType": "NUMBER",
+              "ErrorCode": "ERR075",
+              "Field": "NomineeAge",
+              "InternalMessage": "Nominee must be at least 18 years old",
+              "Mandatory": "Y",
+              "Pattern": "^([1-9][0-9]?|1[0-1][0-9]|120)\\$",
+              "UserMessage": "Nominee must be at least 18 years old",
+              "ValidationType": "Regex"
+            }
+          },
+          {
+            "Condition": "NomineeAge < 18",
+            "Validation": [
+              {
+                "DataType": "STRING",
+                "ErrorCode": "ERR310",
+                "Field": "AppointedName",
+                "InternalMessage":
+                    "Appointed Name is required for nominees below 18",
+                "Mandatory": "Y",
+                "Maxlength": 50,
+                "Minlength": 3,
+                "Pattern": "^[A-Za-z .'-]+\\$",
+                "UserMessage":
+                    "Appointed Name is required for nominees below 18",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "DATE",
+                "ErrorCode": "ERR311",
+                "Field": "AppointedDOB",
+                "InternalMessage":
+                    "Appointed DOB is required for nominees below 18",
+                "Mandatory": "Y",
+                "Pattern":
+                    "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})\\$",
+                "UserMessage":
+                    "Appointed DOB is required for nominees below 18",
+                "ValidationType": "Regex"
+              }
+            ]
+          },
+          {
+            "Condition": "NomineeAdress=='AddNewAddress'",
+            "Validation": [
+              {
+                "DataType": "BOOLEAN",
+                "ErrorCode": "ERR117",
+                "Field": "NomineeAreaPinCode",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 6,
+                "Pattern": "^[0-9]+\\$",
+                "UserMessage": "Please Enter valid detail.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "BOOLEAN",
+                "ErrorCode": "ERR117",
+                "Field": "NomineeFlatNumberBuildingName",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 10,
+                "Pattern": "^[A-Za-z]+\\$",
+                "UserMessage": "Please Enter valid detail.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "BOOLEAN",
+                "ErrorCode": "ERR117",
+                "Field": "NomineeLandmark",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 10,
+                "Pattern": "^[A-Za-z]+\\$",
+                "UserMessage": "Please Enter valid detail.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "BOOLEAN",
+                "ErrorCode": "ERR117",
+                "Field": "NomineeCity",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 50,
+                "Pattern": "^[A-Za-z]+\\$",
+                "UserMessage": "Please Enter valid detail.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "BOOLEAN",
+                "ErrorCode": "ERR117",
+                "Field": "NomineeState",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 50,
+                "Pattern": "^[A-Za-z]+\\$",
+                "UserMessage": "Please Enter valid detail.",
+                "ValidationType": "Regex"
+              },
+              {
+                "DataType": "BOOLEAN",
+                "ErrorCode": "ERR117",
+                "Field": "NomineeCountry",
+                "InternalMessage": "Please Enter valid detail.",
+                "Mandatory": "Y",
+                "Minlength": 50,
+                "Pattern": "^[A-Za-z0-9 ]+\\$",
+                "UserMessage": "Please Enter valid detail.",
+                "ValidationType": "Regex"
+              }
+            ]
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR073",
+            "Field": "DoYouWantNominee",
+            "InternalMessage": "Nominee selection must be Yes or No",
+            "Mandatory": "Y",
+            "UserMessage": "Please select Yes or No for nominee",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "NomineeDetails"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "MAMCOptIn == true",
+            "Validation": {
+              "DataType": "NUMBER",
+              "ErrorCode": "ERR078",
+              "Field": "InitialFundingAmount",
+              "InternalMessage":
+                  "Initial funding amount should be more than 10,00,000",
+              "Mandatory": "Y",
+              "Pattern": "^[1-9][0-9]{6,}\\$",
+              "UserMessage":
+                  "To opt for MAMC, the initial funding amount should be above 10L",
+              "ValidationType": "Regex"
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR076",
+            "Field": "SavingsAccountOption",
+            "InternalMessage":
+                "Account type should be either 'Individual' or 'Joint'",
+            "Mandatory": "Y",
+            "UserMessage": "Please select a valid account type",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "BOOLEAN",
+            "ErrorCode": "ERR077",
+            "Field": "MAMCOptIn",
+            "InternalMessage": "MAMC selection must be true or false",
+            "Mandatory": "N",
+            "UserMessage": "Invalid selection for My Account My Choice",
+            "ValidationType": ""
+          }
+        ],
+        "StepName": "SavingsAccountOptionSelection"
+      },
+      {
+        "FieldValidations": [
+          {
+            "AllowedTypes": ["jpg", "jpeg", "png", "pdf"],
+            "DataType": "STRING",
+            "ErrorCode": "ERR079",
+            "Field": "SignatureUpload",
+            "InternalMessage":
+                "Uploaded file must be JPEG, PNG, or PDF and less than 2MB",
+            "Mandatory": "Y",
+            "MaxSizeKB": 5120,
+            "MinSizeKB": 10,
+            "UserMessage":
+                "Only JPEG, PNG, or PDF files are allowed with a size less than 2MB",
+            "ValidationType": "FileBase64"
+          }
+        ],
+        "StepName": "CustomerSignature"
+      },
+      {
+        "ConditionalValidations": [
+          {
+            "Condition": "LgCode != ''",
+            "Validation": {
+              "ErrorCode": "ERR084",
+              "Field": "LcCode",
+              "InternalMessage": "LC Code is required when LG Code is entered",
+              "Mandatory": "Y",
+              "UserMessage": "LC Code is required when LG Code is entered"
+            }
+          }
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR080",
+            "Field": "SourceChannel",
+            "InternalMessage": "Please select a valid source channel",
+            "Mandatory": "Y",
+            "UserMessage": "Please select a valid source channel",
+            "ValidationType": ""
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR081",
+            "Field": "LgCode",
+            "InternalMessage":
+                "LG Code must be at least 4 digits and contain only numbers",
+            "Mandatory": "Y",
+            "Pattern": "^[0-9]{4,10}\\$",
+            "UserMessage":
+                "LG Code must be at least 4 digits and contain only numbers",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR082",
+            "Field": "LcCode",
+            "InternalMessage":
+                "LC Code must be at least 4 characters and can include letters and numbers",
+            "Mandatory": "N",
+            "Pattern": "^[A-Za-z0-9]{4,10}\\$",
+            "UserMessage":
+                "LC Code must be at least 4 characters and can include letters and numbers",
+            "ValidationType": "Regex"
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR083",
+            "Field": "SalesPromoCode",
+            "InternalMessage":
+                "Sales Promo Code can be alphanumeric and up to 15 characters",
+            "Mandatory": "N",
+            "Pattern": "^[A-Za-z0-9]{1,15}\\$",
+            "UserMessage":
+                "Sales Promo Code can be alphanumeric and up to 15 characters",
+            "ValidationType": "Regex"
+          }
+        ],
+        "StepName": "BankUseSection"
+      }
+    ],
+    "Product": "Account Opening"
+  },
+  "response": "Success",
+  "statuscode": "200"
+}

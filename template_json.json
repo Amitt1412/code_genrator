@@ -1,0 +1,38 @@
+{
+        "ConditionalValidations": [
+         
+        ],
+        "FieldValidations": [
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_LOGIN_001",
+            "Field": "UserName",
+            "validation":[
+              {
+                "type":"regex",
+                "pattern":"^[A-Za-z0-9]{3,12}\\$",
+                "error_message":"Please enter a valid UserName"
+              },
+              {
+                "type":"mandatory",
+                "error_message":"field is required"
+              },
+              {
+                "type":"length",
+                "error_message":"UserName must be alphanumeric and 3 to 10 characters"
+              }
+            ]
+          },
+          {
+            "DataType": "STRING",
+            "ErrorCode": "ERR_LOGIN_002",
+            "Field": "Password",
+            "InternalMessage": "Password format validation",
+            "Mandatory": "Y",
+            "Pattern": "^.{6,20}\\$",
+            "UserMessage": "Password must be 6 to 20 characters long",
+            "ValidationType": "Regex"
+          }
+        ],
+        "StepName": "Login"
+}
